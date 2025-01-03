@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "placar-heavens",
+    "slug": "placar-heavens",
+    "version": "1.0.0",
+    "orientation": "landscape",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kalirodri.placarheavens"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/G10.png",
+        "backgroundColor": "#1E2F5B"
+      },
+      "package": "com.kalirodri.placarheavens"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f472b6d2-cc14-4f9d-b30d-288eb585ccfc"
+      }
+    }
+  }
+}

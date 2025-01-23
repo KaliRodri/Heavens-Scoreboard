@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "placar-heavens",
+    "name": "Heavens Scoreboard",
     "slug": "placar-heavens",
-    "version": "1.0.0",
+    "version": "1.1.9",
     "orientation": "landscape",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/G10.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -15,8 +15,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/G10.png",
-        "backgroundColor": "#1E2F5B"
+        "backgroundColor": "#fff"
       },
+      "versionCode": 4,
       "package": "com.kalirodri.placarheavens"
     },
     "web": {
@@ -29,10 +30,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#fff"
         }
       ],
       "expo-font"

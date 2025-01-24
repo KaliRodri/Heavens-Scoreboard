@@ -16,6 +16,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 const { width, height } = Dimensions.get('window');
 const App = () => {
 
+  // Deixar o celular no modo retrato
   useEffect(() => {
     const lockOrientation = async () => {
       await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
@@ -23,49 +24,61 @@ const App = () => {
     lockOrientation();
   }, []);
 
+  // Pontuações de cada time
   const [scoreA, setScoreA] = useState(0);
   const [scoreB, setScoreB] = useState(0);
   const [setsA, setSetsA] = useState(0);
   const [setsB, setSetsB] = useState(0);
 
+  // Historico das pontuações
   const [history, setHistory] = useState<{ scoreA: number; scoreB: number; setsA: number; setsB: number }[]>([]);
 
+  // Nomes dos times
   const [teamNameA, setTeamNameA] = useState('Time A');
   const [teamNameB, setTeamNameB] = useState('Time B');
+  // Cor para cada time
   const [colorA, setColorA] = useState('#F8C224');
   const [colorB, setColorB] = useState('#2057D8');
 
+  // Quantidade limite de pontos para que seja necessario finalizar um Set da partida
   const [setGoal, setSetGoal] = useState(25); // Inicialmente 25 pontos para terminar o set
 
+  // Cronômetro 
   const [time, setTime] = useState(0); // Tempo em segundos
   const [isRunning, setIsRunning] = useState(false);
 
+  // Rodando o cronômetro
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
+    // Se for ativado, ir adicionando 1 a cada segundo
     if (isRunning) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
+    // Se não, zerar o cronômetro 
     } else if (!isRunning && interval) {
       clearInterval(interval);
     }
-
+    // retornar o cronômetro zerado??
     return () => {
       if (interval) clearInterval(interval);
     };
   }, [isRunning]);
 
+  // Deixar o cronômetro no formato para minutos e segundos: "00m:00s"
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   };
-
+  
+  // Alternar o cronômetro
   const toggleTimer = () => {
     setIsRunning(!isRunning);
   };
 
+  // Definindo as font pro App
   const [fontsLoaded] = useFonts({
     'Fonte1': require('../../assets/fonts/DS-DIGI.ttf'),
     'Fonte2': require('../../assets/fonts/DS-DIGIB.ttf'),
@@ -73,10 +86,12 @@ const App = () => {
     'Fonte4': require('../../assets/fonts/DS-DIGIT.ttf'),
   });
 
+  // Se não achar as font reiniciar o app(eu acho)
   if (!fontsLoaded) {
     return <AppLoading />;
   }
   
+  // Tocar o apito do árbitro
   const playWhistle = async () => {
     const { sound } = await Audio.Sound.createAsync(
       require('../../assets/images/Whistle.mp3') // Adicione seu arquivo de som na pasta assets
@@ -85,10 +100,11 @@ const App = () => {
   };
 
 
-
+  // Incrementar a pontuação dos times A e B
   const incrementScore = (team: 'A' | 'B') => {
     setHistory([...history, { scoreA, scoreB, setsA, setsB }]);
   
+    // Se apertar no time "A" aumentar a pontuação em 1 ponto
     if (team === 'A') {
       const newScoreA = scoreA + 1;
       setScoreA(newScoreA);
@@ -99,6 +115,7 @@ const App = () => {
         setScoreB(0); // Reseta o placar
         setSetsA(setsA + 1); // Aumenta o número de sets ganhos pelo Time A
       }
+    // Se não, aumentar a pontuação em 1 ponto no time "B"
     } else {
       const newScoreB = scoreB + 1;
       setScoreB(newScoreB);
@@ -112,15 +129,17 @@ const App = () => {
     }
   };
 
+  // Resetar a partida
   const resetGame = () => {
-    setScoreA(0);
-    setScoreB(0);
-    setSetsA(0);
-    setSetsB(0);
+    setScoreA(0); // zerando a pontuação do time "A"
+    setScoreB(0); // zerando a pontuação do time "B"
+    setSetsA(0);  // zerando a pontuação do set do time "A"
+    setSetsB(0);  // zerando a pontuação do set do time "B"
     setTime(0); // Reinicia o tempo
     setIsRunning(false); // Pausa o timer
   };
 
+  // Voltar a pontuação do ultimo que recebeu 1 ponto
   const undoScore = () => {
     if (history.length > 0) {
       const lastState = history.pop(); // Recupera o último estado do histórico
@@ -150,6 +169,7 @@ const App = () => {
     setColorB(colorA);
   };
 
+  // Alterar pontuação final para cada set
   const toggleSetGoal = () => {
     if (setGoal === 25) {
       setSetGoal(21);
@@ -160,7 +180,13 @@ const App = () => {
     }
   };
   
+  // Todo
   const configurations = (team: 'A' | 'B') =>{
+    // Mudança no valor da pontuação dos times A e B
+    // Definir o nome de cada time
+    // Poder alterar a imagem do time
+    // Definir o metódo de incremento de pontuação { apenas apertando, por rolagem, ambos}
+    // Remover o botão que diminui os pontos
   } 
   
   
